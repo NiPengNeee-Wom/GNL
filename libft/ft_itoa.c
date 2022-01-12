@@ -1,0 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yplag <yplag@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/03/12 15:45:24 by yplag             #+#    #+#             */
+/*   Updated: 2015/03/12 15:45:25 by yplag            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+static int		ft_size(int n)
+{
+	int len;
+
+	len = 1;
+	if (n < 0)
+	{
+		n = -n;
+		len++;
+	}
+	while (n > 10)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
+}
+
+char			*ft_itoa(int n)
+{
+	char	*s;
+	int		len;
+
+	if (n == 0)
+		return (ft_strdup("0"));
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	len = ft_size(n);
+	s = ft_strnew(len);
+	if (!s)
+		return (NULL);
+	if (n < 0)
+	{
+		s[0] = '-';
+		n = -n;
+	}
+	len--;
+	while (n)
+	{
+		s[len--] = (n % 10 + '0');
+		n /= 10;
+	}
+	return (s);
+}
